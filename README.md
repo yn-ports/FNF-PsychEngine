@@ -20,6 +20,27 @@ Go to PlayState.hx, and copy this code
 ```
 go on the line 1233,skip two lines and paste the code you copied above, changing only the name, like script1, script2...
 
+with the scripts folder, just do the same thing only with the scripts folder code
+
+```haxe
+		#if LUA_ALLOWED
+		var doPush:Bool = false;
+
+		if(openfl.utils.Assets.exists("assets/scripts/" + "script.lua"))
+		{
+			var path = Paths.luaAsset("scripts/" + "script");
+			var luaFile = openfl.Assets.getBytes(path);
+
+			FileSystem.createDirectory(Main.path + "assets/scripts");
+			FileSystem.createDirectory(Main.path + "assets/scripts/");
+			
+			File.saveBytes(Paths.lua("scripts/" + "script"), luaFile);
+			doPush = true;
+		}
+		if(doPush)
+			luaArray.push(new FunkinLua(Paths.lua("scripts/" + "script")));
+		#end
+```
 ## Installation:
 You must have [the most up-to-date version of Haxe](https://haxe.org/download/), seriously, stop using 4.1.5, it misses some stuff.
 
