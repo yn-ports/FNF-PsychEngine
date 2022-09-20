@@ -5,7 +5,7 @@ Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), 
 
 Go to PlayState.hx, and copy this code
 
-```cmd
+```haxe
     #if (LUA_ALLOWED)
 		var doPush:Bool = false;
 		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/script.lua';
