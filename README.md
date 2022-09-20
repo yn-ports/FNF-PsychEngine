@@ -5,7 +5,7 @@ Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), 
 
 Go to PlayState.hx, and copy this code
 
-'''cmd
+```cmd
     #if (LUA_ALLOWED)
 		var doPush:Bool = false;
 		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/script.lua';
@@ -17,7 +17,7 @@ Go to PlayState.hx, and copy this code
 		if(doPush) 
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
 		#end
-'''
+```
 go on the line 1233,skip two lines and paste the code you copied above, changing only the name, like script1, script2...
 
 ## Installation:
