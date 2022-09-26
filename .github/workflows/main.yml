@@ -6,9 +6,9 @@ name: Android Build
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main ]
+    branches: [ extension-webm-support ]
   pull_request:
-    branches: [ main ]
+    branches: [ extension-webm-support ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -56,6 +56,7 @@ jobs:
           haxelib --quiet install flixel-addons
           haxelib --quiet install hxCodec
           haxelib git linc_luajit https://github.com/MAJigsaw77/linc_luajit
+          haxelib git extension-webm https://github.com/Sirox228/extension-webm
           haxelib list
 
       - name: Create Version Tag
