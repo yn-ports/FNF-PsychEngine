@@ -1081,33 +1081,6 @@ class PlayState extends MusicBeatState
 		// startCountdown();
 
 		generateSong(SONG.song);
-<<<<<<< HEAD
-		#if LUA_ALLOWED
-		for (notetype in noteTypeMap.keys())
-		{
-			var luaToLoad:String = 'custom_notetypes/' + notetype + '.lua';
-				luaToLoad = Paths.getPreloadPath(luaToLoad);
-				if(OpenFlAssets.exists(luaToLoad))
-				{
-					luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
-				}
-		}
-		for (event in eventPushedMap.keys())
-		{
-			var luaToLoad:String = 'custom_events/' + event + '.lua';
-				luaToLoad = Paths.getPreloadPath(luaToLoad);
-				if(OpenFlAssets.exists(luaToLoad))
-				{
-					luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
-				}
-		}
-		#end
-		noteTypeMap.clear();
-		noteTypeMap = null;
-		eventPushedMap.clear();
-		eventPushedMap = null;
-=======
->>>>>>> 647e9c577c398d8f47c500e26f23e99cade6339f
 
 		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
 		// add(strumLine);
@@ -1215,51 +1188,21 @@ class PlayState extends MusicBeatState
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys())
 		{
-			#if MODS_ALLOWED
-			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
-			if(FileSystem.exists(luaToLoad))
-			{
-				luaArray.push(new FunkinLua(luaToLoad));
-			}
-			else
-			{
-				luaToLoad = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
-				if(FileSystem.exists(luaToLoad))
+			var luaToLoad:String = 'custom_notetypes/' + notetype + '.lua';
+				luaToLoad = Paths.getPreloadPath(luaToLoad);
+				if(OpenFlAssets.exists(luaToLoad))
 				{
-					luaArray.push(new FunkinLua(luaToLoad));
+					luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
 				}
-			}
-			#elseif sys
-			var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
-			if(OpenFlAssets.exists(luaToLoad))
-			{
-				luaArray.push(new FunkinLua(luaToLoad));
-			}
-			#end
 		}
 		for (event in eventPushedMap.keys())
 		{
-			#if MODS_ALLOWED
-			var luaToLoad:String = Paths.modFolders('custom_events/' + event + '.lua');
-			if(FileSystem.exists(luaToLoad))
-			{
-				luaArray.push(new FunkinLua(luaToLoad));
-			}
-			else
-			{
-				luaToLoad = Paths.getPreloadPath('custom_events/' + event + '.lua');
-				if(FileSystem.exists(luaToLoad))
+			var luaToLoad:String = 'custom_events/' + event + '.lua';
+				luaToLoad = Paths.getPreloadPath(luaToLoad);
+				if(OpenFlAssets.exists(luaToLoad))
 				{
-					luaArray.push(new FunkinLua(luaToLoad));
+					luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
 				}
-			}
-			#elseif sys
-			var luaToLoad:String = Paths.getPreloadPath('custom_events/' + event + '.lua');
-			if(OpenFlAssets.exists(luaToLoad))
-			{
-				luaArray.push(new FunkinLua(luaToLoad));
-			}
-			#end
 		}
 		#end
 		noteTypeMap.clear();
@@ -5169,20 +5112,14 @@ class PlayState extends MusicBeatState
 		for (script in luaArray) {
 			if(exclusions.contains(script.scriptName))
 				continue;
-
 			var ret:Dynamic = script.call(event, args);
 			if(ret == FunkinLua.Function_StopLua && !ignoreStops)
 				break;
-			
+
 			// had to do this because there is a bug in haxe where Stop != Continue doesnt work
 			var bool:Bool = ret == FunkinLua.Function_Continue;
-<<<<<<< HEAD
-			if(!bool) {
-				returnVal = ret;
-=======
 			if(!bool && ret != 0) {
 				returnVal = cast ret;
->>>>>>> 647e9c577c398d8f47c500e26f23e99cade6339f
 			}
 		}
 		#end
