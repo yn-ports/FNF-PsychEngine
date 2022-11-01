@@ -190,6 +190,7 @@
 	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
 
+        <!--Gradle Version (Android Shit)-->
         <config:android gradle-version="7.5.1" />
         <config:android gradle-plugin="7.3.1" />
 
