@@ -863,45 +863,27 @@ class PlayState extends MusicBeatState
 		luaDebugGroup = new FlxTypedGroup<DebugLuaText>();
 		luaDebugGroup.cameras = [camOther];
 		add(luaDebugGroup);
-				
-		FileSystem.createDirectory(Main.path + "assets"); // saving lines
 
 		// "GLOBAL" SCRIPT
 		#if LUA_ALLOWED
 		var doPush:Bool = false;
-
-		if(openfl.utils.Assets.exists("assets/scripts/" + "script.lua"))
-		{
-			var path = Paths.luaAsset("scripts/" + "script");
-			var luaFile = openfl.Assets.getBytes(path);
-
-			FileSystem.createDirectory(Main.path + "assets/scripts");
-			FileSystem.createDirectory(Main.path + "assets/scripts/");
-			
-			File.saveBytes(Paths.lua("scripts/" + "script"), luaFile);
+                if(OpenFlAssets.exists("assets/scripts/" + "script.lua"))
+                {
 			doPush = true;
-		}
+                }
 		if(doPush)
-			luaArray.push(new FunkinLua(Paths.lua("scripts/" + "script")));
-		#end //thx random
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "script.lua")));
+		#end
 
 		#if LUA_ALLOWED
 		var doPush:Bool = false;
-
-		if(openfl.utils.Assets.exists("assets/scripts/" + "script1.lua"))
-		{
-			var path = Paths.luaAsset("scripts/" + "script1");
-			var luaFile = openfl.Assets.getBytes(path);
-
-			FileSystem.createDirectory(Main.path + "assets/scripts");
-			FileSystem.createDirectory(Main.path + "assets/scripts/");
-			
-			File.saveBytes(Paths.lua("scripts/" + "script1"), luaFile);
+                if(OpenFlAssets.exists("assets/scripts/" + "script1.lua"))
+                {
 			doPush = true;
-		}
+                }
 		if(doPush)
-			luaArray.push(new FunkinLua(Paths.lua("scripts/" + "script1")));
-		#end //thx random
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "script1.lua")));
+		#end
 
 		// STAGE SCRIPTS
 		var doPush:Bool = false;
