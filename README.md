@@ -25,20 +25,12 @@ with the scripts folder, just do the same thing only with the scripts folder cod
 ```haxe
 		#if LUA_ALLOWED
 		var doPush:Bool = false;
-
-		if(openfl.utils.Assets.exists("assets/scripts/" + "script.lua"))
-		{
-			var path = Paths.luaAsset("scripts/" + "script");
-			var luaFile = openfl.Assets.getBytes(path);
-
-			FileSystem.createDirectory(Main.path + "assets/scripts");
-			FileSystem.createDirectory(Main.path + "assets/scripts/");
-			
-			File.saveBytes(Paths.lua("scripts/" + "script"), luaFile);
+                if(OpenFlAssets.exists("assets/scripts/" + "script.lua"))
+                {
 			doPush = true;
-		}
+                }
 		if(doPush)
-			luaArray.push(new FunkinLua(Paths.lua("scripts/" + "script")));
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "script.lua")));
 		#end
 ```
 ## Installation:
