@@ -118,7 +118,7 @@ class Main extends Sprite
 			}
 		}
 
-		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/ShadowMario/FNF-PsychEngine\n\n> Crash Handler written by: sqirra-rng";
+		errMsg += "\nUncaught Error: " + e.error + "\n> Crash Handler written by: sqirra-rng";
 
 		if (!OpenFlAssets.exists("./crash/"))
 			FileSystem.createDirectory(Main.path + "./crash/");
