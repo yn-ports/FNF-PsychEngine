@@ -79,7 +79,8 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
-		addChild(new FlxGame(0, 0, TitleState, 1, 60, 60, true, false));
+		var stageWidth:Int = Lib.current.stage.stageWidth;
+		var stageHeight:Int = Lib.current.stage.stageHeight;
 
 		if (game.zoom == -1.0)
 		{
