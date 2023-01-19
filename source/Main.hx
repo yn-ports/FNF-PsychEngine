@@ -10,10 +10,7 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
-<<<<<<< HEAD
 import lime.system.System;
-=======
->>>>>>> 5d7a915720e4664290216de0f6fb4338f36fe3ce
 import lime.app.Application;
 
 #if desktop

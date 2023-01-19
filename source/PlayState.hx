@@ -886,21 +886,9 @@ class PlayState extends MusicBeatState
 		#end
 
 		// STAGE SCRIPTS
-<<<<<<< HEAD
-		var doPush:Bool = false;
-		var luaFile:String = 'stages/' + curStage + '.lua';
-			luaFile = Paths.getPreloadPath(luaFile);
-			if(OpenFlAssets.exists(luaFile)) {
-				doPush = true;
-                }
-
-		if(doPush)
-			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
-=======
 		#if (MODS_ALLOWED && LUA_ALLOWED)
 		startLuasOnFolder('stages/' + curStage + '.lua');
 		#end
->>>>>>> 5d7a915720e4664290216de0f6fb4338f36fe3ce
 
 		var gfVersion:String = SONG.gfVersion;
 		if(gfVersion == null || gfVersion.length < 1)
@@ -1178,29 +1166,11 @@ class PlayState extends MusicBeatState
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys())
 		{
-<<<<<<< HEAD
-			var luaToLoad:String = 'custom_notetypes/' + notetype + '.lua';
-				luaToLoad = Paths.getPreloadPath(luaToLoad);
-				if(OpenFlAssets.exists(luaToLoad))
-				{
-					luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
-				}
-		}
-		for (event in eventPushedMap.keys())
-		{
-			var luaToLoad:String = 'custom_events/' + event + '.lua';
-				luaToLoad = Paths.getPreloadPath(luaToLoad);
-				if(OpenFlAssets.exists(luaToLoad))
-				{
-					luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
-				}
-=======
 			startLuasOnFolder('custom_notetypes/' + notetype + '.lua');
 		}
 		for (event in eventPushedMap.keys())
 		{
 			startLuasOnFolder('custom_events/' + event + '.lua');
->>>>>>> 5d7a915720e4664290216de0f6fb4338f36fe3ce
 		}
 		#end
 		noteTypeMap.clear();
@@ -5133,7 +5103,7 @@ class PlayState extends MusicBeatState
 		var luaToLoad:String = Paths.getPreloadPath(luaFile);
 		if(OpenFlAssets.exists(luaToLoad))
 		{
-			luaArray.push(new FunkinLua(luaToLoad));
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
 			return true;
 		}
 		#end
@@ -5150,16 +5120,6 @@ class PlayState extends MusicBeatState
 		for (script in luaArray) {
 			if(exclusions.contains(script.scriptName))
 				continue;
-<<<<<<< HEAD
-			var ret:Dynamic = script.call(event, args);
-			if(ret == FunkinLua.Function_StopLua && !ignoreStops)
-				break;
-
-			// had to do this because there is a bug in haxe where Stop != Continue doesnt work
-			var bool:Bool = ret == FunkinLua.Function_Continue;
-			if(!bool && ret != 0) {
-				returnVal = cast ret;
-=======
 
 			var myValue = script.call(event, args);
 			if(myValue == FunkinLua.Function_StopLua && !ignoreStops)
@@ -5167,7 +5127,6 @@ class PlayState extends MusicBeatState
 			
 			if(myValue != null && myValue != FunkinLua.Function_Continue) {
 				returnVal = myValue;
->>>>>>> 5d7a915720e4664290216de0f6fb4338f36fe3ce
 			}
 		}
 		#end
