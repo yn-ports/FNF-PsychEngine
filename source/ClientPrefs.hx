@@ -134,7 +134,11 @@ class ClientPrefs {
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
+<<<<<<< HEAD
 		save.bind('controls_v2' #if (flixel < "5.0.0"), 'ninjamuffin99' #end); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
+=======
+		save.bind('controls_v2', CoolUtil.getSavePath()); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
+>>>>>>> 5d7a915720e4664290216de0f6fb4338f36fe3ce
 		save.data.customControls = keyBinds;
 		save.flush();
 		FlxG.log.add("Settings saved!");
@@ -268,7 +272,11 @@ class ClientPrefs {
 			comboStacking = FlxG.save.data.comboStacking;
 
 		var save:FlxSave = new FlxSave();
+<<<<<<< HEAD
 		save.bind('controls_v2' #if (flixel < "5.0.0"), 'ninjamuffin99' #end);
+=======
+		save.bind('controls_v2', CoolUtil.getSavePath());
+>>>>>>> 5d7a915720e4664290216de0f6fb4338f36fe3ce
 		if(save != null && save.data.customControls != null) {
 			var loadedControls:Map<String, Array<FlxKey>> = save.data.customControls;
 			for (control => keys in loadedControls) {
