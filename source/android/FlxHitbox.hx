@@ -53,7 +53,7 @@ class FlxHitbox extends FlxSpriteGroup {
 			});
 		}
 		button.onOut.callback = function(){
-			FlxTween.num(button.alpha, 0, 0.2, {ease:FlxEase.circInOut}, function(alpha:Float){ 
+			FlxTween.num(button.alpha, 0.2, 0.5, {ease:FlxEase.circInOut}, function(alpha:Float){ 
 				button.alpha = alpha;
 			});
 		}
