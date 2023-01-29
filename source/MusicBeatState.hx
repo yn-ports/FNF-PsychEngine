@@ -2,7 +2,7 @@ package;
 
 #if android
 import android.AndroidControls;
-import android.flixel.FlxVirtualPad;
+import android.FlxVirtualPad;
 import flixel.input.actions.FlxActionInput;
 import flixel.util.FlxDestroyUtil;
 #end
