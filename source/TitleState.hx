@@ -1,6 +1,7 @@
 package;
 
 #if desktop
+import Discord.DiscordClient;
 import sys.thread.Thread;
 #end
 import flixel.FlxG;
@@ -34,6 +35,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import lime.app.Application;
 import openfl.Assets;
 
 using StringTools;
@@ -86,16 +88,17 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+	
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
-
+		
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
-		#if LUA_ALLOWED
+		/*#if LUA_ALLOWED
 		Paths.pushGlobalMods();
-		#end
+		#end*///don't need it :(
 		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
 		WeekData.loadTheFirstEnabledMod();
 
@@ -131,14 +134,14 @@ class TitleState extends MusicBeatState
 		swagShader = new ColorSwap();
 		super.create();
 
-		FlxG.save.bind('funkin', CoolUtil.getSavePath());
+		FlxG.save.bind('TheBasementShow', 'BasementTeam');
 
 		ClientPrefs.loadPrefs();
 
 		#if CHECK_FOR_UPDATES
 		if(ClientPrefs.checkForUpdates && !closedState) {
 			trace('checking for update');
-			var http = new haxe.Http(" "); //Nope
+			var http = new haxe.Http("https://raw.githubusercontent.com/ShadowMario/FNF-PsychEngine/main/gitVersion.txt");
 
 			http.onData = function (data:String)
 			{
@@ -210,6 +213,16 @@ class TitleState extends MusicBeatState
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new FlashingState());
 		} else {
+			#if desktop
+			if (!DiscordClient.isInitialized)
+			{
+				DiscordClient.initialize();
+				Application.current.onExit.add (function (exitCode) {
+					DiscordClient.shutdown();
+				});
+			}
+			#end
+
 			if (initialized)
 				startIntro();
 			else
