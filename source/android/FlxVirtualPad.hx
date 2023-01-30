@@ -203,7 +203,7 @@ enum FlxDPadMode {
 	UP_DOWN;
 	LEFT_RIGHT;
 	UP_LEFT_RIGHT;
-	FULL;
+	LEFT_FULL;
 	RIGHT_FULL;
 	DUO;
 	NONE;
@@ -219,6 +219,7 @@ enum FlxActionMode {
 	A_B_X_Y;	
 	A_B_C_X_Y;
 	A_B_C_X_Y_Z;
-	FULL;
+	A_B_C_D_V_X_Y_Z
+	LEFT_FULL;
 	NONE;
 }
