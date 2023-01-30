@@ -277,8 +277,7 @@ class ChartingState extends MusicBeatState
 		if(curSec >= _song.notes.length) curSec = _song.notes.length - 1;
 
 		FlxG.mouse.visible = true;
-
-		//FlxG.save.bind('funkin', CoolUtil.getSavePath());
+		//FlxG.save.bind('funkin', 'ninjamuffin99');
 
 		tempBpm = _song.bpm;
 
@@ -1769,7 +1768,7 @@ class ChartingState extends MusicBeatState
 				else
 					{
 						var time:Float = FlxG.sound.music.time;
-						var beat:Float = curDecBeat;
+						var beat:Float = curBeat;
 						var snap:Float = quantization / 4;
 						var increase:Float = 1 / snap;
 						if (FlxG.mouse.wheel > 0)
@@ -1820,7 +1819,7 @@ class ChartingState extends MusicBeatState
 					FlxG.sound.music.pause();
 					updateCurStep();
 					var time:Float = FlxG.sound.music.time;
-					var beat:Float = curDecBeat;
+					var beat:Float = curBeat;
 					var snap:Float = quantization / 4;
 					var increase:Float = 1 / snap;
 					if (FlxG.keys.pressed.UP)
@@ -1886,7 +1885,7 @@ class ChartingState extends MusicBeatState
 
 						//(Math.floor((curStep+quants[curQuant]*1.5/(quants[curQuant]/2))/quants[curQuant])*quants[curQuant]) * Conductor.stepCrochet;//snap into quantization
 					var time:Float = FlxG.sound.music.time;
-					var beat:Float = curDecBeat;
+					var beat:Float = curBeat;
 					var snap:Float = quantization / 4;
 					var increase:Float = 1 / snap;
 					if (FlxG.keys.pressed.UP)
@@ -1998,7 +1997,7 @@ class ChartingState extends MusicBeatState
 		bpmTxt.text =
 		Std.string(FlxMath.roundDecimal(Conductor.songPosition / 1000, 2)) + " / " + Std.string(FlxMath.roundDecimal(FlxG.sound.music.length / 1000, 2)) +
 		"\nSection: " + curSec +
-		"\n\nBeat: " + Std.string(curDecBeat).substring(0,4) +
+		"\n\nBeat: " + Std.string(curBeat).substring(0,4) +
 		"\n\nStep: " + curStep +
 		"\n\nBeat Snap: " + quantization + "th";
 
@@ -2024,7 +2023,7 @@ class ChartingState extends MusicBeatState
 					var noteDataToCheck:Int = note.noteData;
 					if(noteDataToCheck > -1 && note.mustPress != _song.notes[curSec].mustHitSection) noteDataToCheck += 4;
 						strumLineNotes.members[noteDataToCheck].playAnim('confirm', true);
-						strumLineNotes.members[noteDataToCheck].resetAnim = ((note.sustainLength / 1000) + 0.15) / playbackSpeed;
+						strumLineNotes.members[noteDataToCheck].resetAnim = (note.sustainLength / 1000) + 0.15;
 					if(!playedSound[data]) {
 						if((playSoundBf.checked && note.mustPress) || (playSoundDad.checked && !note.mustPress)){
 							var soundToPlay = 'hitsound';
