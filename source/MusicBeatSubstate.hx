@@ -1,15 +1,14 @@
 package;
 
-#if android
-import android.FlxVirtualPad;
-import flixel.input.actions.FlxActionInput;
-import flixel.util.FlxDestroyUtil;
-#end
 import Conductor.BPMChangeEvent;
 import flixel.FlxG;
 import flixel.FlxSubState;
 import flixel.FlxBasic;
 import flixel.FlxSprite;
+#if android
+import flixel.input.actions.FlxActionInput;
+import android.FlxVirtualPad;
+#end
 
 class MusicBeatSubstate extends FlxSubState
 {
@@ -23,65 +22,48 @@ class MusicBeatSubstate extends FlxSubState
 
 	private var curStep:Int = 0;
 	private var curBeat:Int = 0;
-
-	private var curDecStep:Float = 0;
-	private var curDecBeat:Float = 0;
 	private var controls(get, never):Controls;
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
 
 	#if android
-	var virtualPad:FlxVirtualPad;
+	var _virtualpad:FlxVirtualPad;
 	var trackedinputsUI:Array<FlxActionInput> = [];
-
-	public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
-	{
-		virtualPad = new FlxVirtualPad(DPad, Action);
-		add(virtualPad);
-
-		controls.setVirtualPadUI(virtualPad, DPad, Action);
+	#end
+	
+	#if android
+	public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode) {
+		_virtualpad = new FlxVirtualPad(DPad, Action);
+		add(_virtualpad);
+		controls.setVirtualPadUI(_virtualpad, DPad, Action);
 		trackedinputsUI = controls.trackedinputsUI;
 		controls.trackedinputsUI = [];
 	}
+	#end
 
-	public function removeVirtualPad()
-	{
-		if (trackedinputsUI != [])
-			controls.removeFlxInput(trackedinputsUI);
-
-		if (virtualPad != null)
-			remove(virtualPad);
-	}
-
-	public function addPadCamera()
-	{
-		if (virtualPad != null)
-		{
-			var camControls = new flixel.FlxCamera();
-			FlxG.cameras.add(camControls, false);
-			camControls.bgColor.alpha = 0;
-			virtualPad.cameras = [camControls];
-		}
+	#if android
+	public function removeVirtualPad() {
+		controls.removeFlxInput(trackedinputsUI);
+		remove(_virtualpad);
 	}
 	#end
 
-	override function destroy()
-	{
+	#if android
+        public function addPadCamera() {
+		var camcontrol = new flixel.FlxCamera();
+		FlxG.cameras.add(camcontrol);
+		camcontrol.bgColor.alpha = 0;
+		_virtualpad.cameras = [camcontrol];
+	}
+	#end
+	
+	override function destroy() {
 		#if android
-		if (trackedinputsUI != [])
-			controls.removeFlxInput(trackedinputsUI);
-		#end
-
+		controls.removeFlxInput(trackedinputsUI);
+		#end	
+		
 		super.destroy();
-
-		#if android
-		if (virtualPad != null)
-		{
-			virtualPad = FlxDestroyUtil.destroy(virtualPad);
-			virtualPad = null;
-		}
-		#end
 	}
 
 	override function update(elapsed:Float)
@@ -90,7 +72,7 @@ class MusicBeatSubstate extends FlxSubState
 		var oldStep:Int = curStep;
 
 		updateCurStep();
-		updateBeat();
+		curBeat = Math.floor(curStep / 4);
 
 		if (oldStep != curStep && curStep > 0)
 			stepHit();
@@ -99,19 +81,20 @@ class MusicBeatSubstate extends FlxSubState
 		super.update(elapsed);
 	}
 
-	private function updateBeat():Void
-	{
-		curBeat = Math.floor(curStep / 4);
-		curDecBeat = curDecStep/4;
-	}
-
 	private function updateCurStep():Void
 	{
-		var lastChange = Conductor.getBPMFromSeconds(Conductor.songPosition);
+		var lastChange:BPMChangeEvent = {
+			stepTime: 0,
+			songTime: 0,
+			bpm: 0
+		}
+		for (i in 0...Conductor.bpmChangeMap.length)
+		{
+			if (Conductor.songPosition > Conductor.bpmChangeMap[i].songTime)
+				lastChange = Conductor.bpmChangeMap[i];
+		}
 
-		var shit = ((Conductor.songPosition - ClientPrefs.noteOffset) - lastChange.songTime) / lastChange.stepCrochet;
-		curDecStep = lastChange.stepTime + shit;
-		curStep = lastChange.stepTime + Math.floor(shit);
+		curStep = lastChange.stepTime + Math.floor((Conductor.songPosition - lastChange.songTime) / Conductor.stepCrochet);
 	}
 
 	public function stepHit():Void
