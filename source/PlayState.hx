@@ -5757,16 +5757,16 @@ class PlayState extends MusicBeatState
 				camHUD.zoom += 0.03 * camZoomingMult;
 			}
 
-			if (SONG.notes[id].changeBPM)
+			if (SONG.notes[Math.floor(curStep / 16)].changeBPM)
 			{
-				Conductor.changeBPM(SONG.notes[id].bpm);
+				Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
 				setOnLuas('curBpm', Conductor.bpm);
 				setOnLuas('crochet', Conductor.crochet);
 				setOnLuas('stepCrochet', Conductor.stepCrochet);
 			}
-			setOnLuas('mustHitSection', SONG.notes[id].mustHitSection);
-			setOnLuas('altAnim', SONG.notes[id].altAnim);
-			setOnLuas('gfSection', SONG.notes[id].gfSection);
+			setOnLuas('mustHitSection', SONG.notes[Math.floor(curStep / 16)].mustHitSection);
+			setOnLuas('altAnim', SONG.notes[Math.floor(curStep / 16)].altAnim);
+			setOnLuas('gfSection', SONG.notes[Math.floor(curStep / 16)].gfSection);
 		}
 
 		setOnLuas('curBeat');
