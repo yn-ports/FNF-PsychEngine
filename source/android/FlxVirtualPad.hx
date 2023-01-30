@@ -219,7 +219,7 @@ enum FlxActionMode {
 	A_B_X_Y;	
 	A_B_C_X_Y;
 	A_B_C_X_Y_Z;
-	A_B_C_D_V_X_Y_Z
+	A_B_C_D_V_X_Y_Z;
 	LEFT_FULL;
 	NONE;
 }
