@@ -3510,7 +3510,7 @@ class PlayState extends MusicBeatState
 			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
 		}
 
-		FlxG.watch.addQuick("secShit", curSection);
+		// FlxG.watch.addQuick("secShit", curSection);
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
 
@@ -4290,10 +4290,10 @@ class PlayState extends MusicBeatState
 
 	function moveCameraSection():Void
 	{
-		if (SONG.notes[curSection] == null)
+		if (SONG.notes[id] == null)
 			return;
 
-		if (gf != null && SONG.notes[curSection].gfSection)
+		if (gf != null && SONG.notes[id].gfSection)
 		{
 			camFollow.set(gf.getMidpoint().x, gf.getMidpoint().y);
 			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
@@ -4303,7 +4303,7 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		if (!SONG.notes[curSection].mustHitSection)
+		if (!SONG.notes[id].mustHitSection)
 		{
 			moveCamera(true);
 			callOnLuas('onMoveCamera', ['dad']);
@@ -5744,7 +5744,7 @@ class PlayState extends MusicBeatState
 	{
 		super.sectionHit();
 
-		if (SONG.notes[curSection] != null)
+		if (SONG.notes[id] != null)
 		{
 			if (generatedMusic && !endingSong && !isCameraOnForcedPos)
 			{
@@ -5757,20 +5757,20 @@ class PlayState extends MusicBeatState
 				camHUD.zoom += 0.03 * camZoomingMult;
 			}
 
-			if (SONG.notes[curSection].changeBPM)
+			if (SONG.notes[id].changeBPM)
 			{
-				Conductor.changeBPM(SONG.notes[curSection].bpm);
+				Conductor.changeBPM(SONG.notes[id].bpm);
 				setOnLuas('curBpm', Conductor.bpm);
 				setOnLuas('crochet', Conductor.crochet);
 				setOnLuas('stepCrochet', Conductor.stepCrochet);
 			}
-			setOnLuas('mustHitSection', SONG.notes[curSection].mustHitSection);
-			setOnLuas('altAnim', SONG.notes[curSection].altAnim);
-			setOnLuas('gfSection', SONG.notes[curSection].gfSection);
+			setOnLuas('mustHitSection', SONG.notes[id].mustHitSection);
+			setOnLuas('altAnim', SONG.notes[id].altAnim);
+			setOnLuas('gfSection', SONG.notes[id].gfSection);
 		}
 
-		setOnLuas('curSection', curSection);
-		callOnLuas('onSectionHit', []);
+		setOnLuas('curBeat');
+		callOnLuas('onBeatHit', []);
 	}
 
 	#if LUA_ALLOWED
