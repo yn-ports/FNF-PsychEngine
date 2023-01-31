@@ -894,13 +894,7 @@ class PlayState extends MusicBeatState
 		// "GLOBAL" SCRIPTS
 		#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
-		var foldersToCheck:Array<String> = [Paths.getPreloadPath('scripts/')];
-
-		#if MODS_ALLOWED
-		foldersToCheck.insert(0, Paths.mods('scripts/'));
-		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
-			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/scripts/'));
-		#end
+		var foldersToCheck:Array<String> = [Paths.getPreloadPath('assets/scripts/')];
 
 		for (folder in foldersToCheck)
 		{
@@ -1245,13 +1239,7 @@ class PlayState extends MusicBeatState
 // SONG SPECIFIC SCRIPTS
 		#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
-		var foldersToCheck:Array<String> = [Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];
-
-		#if MODS_ALLOWED
-		foldersToCheck.insert(0, Paths.mods('data/' + Paths.formatToSongPath(SONG.song) + '/'));
-		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
-			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/data/' + Paths.formatToSongPath(SONG.song) + '/'));
-		#end
+		var foldersToCheck:Array<String> = [Paths.getPreloadPath('assets/data/' + Paths.formatToSongPath(SONG.song) + '/')];
 
 		for (folder in foldersToCheck)
 		{
