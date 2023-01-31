@@ -892,7 +892,7 @@ class PlayState extends MusicBeatState
 		add(luaDebugGroup);
 
 
-		// "GLOBAL" SCRIPT
+		/*// "GLOBAL" SCRIPT
 		#if LUA_ALLOWED
 		var doPush:Bool = false;
                 if(OpenFlAssets.exists("assets/scripts/" + "Combo.lua"))
@@ -1001,7 +1001,7 @@ class PlayState extends MusicBeatState
                 }
 		if(doPush)
 			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "pause.lua")));
-		#end
+		#end*/
 
 		// STAGE SCRIPTS
 		#if (MODS_ALLOWED && LUA_ALLOWED)
@@ -1311,7 +1311,7 @@ class PlayState extends MusicBeatState
 			eventNotes.sort(sortByTime);
 		}
 
-		// SONG SPECIFIC SCRIPTS
+		/*// SONG SPECIFIC SCRIPTS
     #if (LUA_ALLOWED)
 		var doPush:Bool = false;
 		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/script.lua';
@@ -1490,7 +1490,7 @@ class PlayState extends MusicBeatState
 		
 		if(doPush) 
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
-		#end
+		#end*/
 
 		var daSong:String = Paths.formatToSongPath(curSong);
 		if (isStoryMode && !seenCutscene)
