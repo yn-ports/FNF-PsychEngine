@@ -37,7 +37,7 @@ class MainMenuState extends MusicBeatState
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 
-	var freeplayLock:Bool = true;
+	// var freeplayLock:Bool = true;
 
 	var newShader:ColorSwap;
 
@@ -71,13 +71,13 @@ class MainMenuState extends MusicBeatState
 		WeekData.loadTheFirstEnabledMod();
 
 		// Unlock Freeplay
-		if (score > 0 && freeplayLock == true)
+		/*if (score > 0 && freeplayLock == true)
 		{
 			trace('Normal Unlock');
 			ClientPrefs.freeplayLock = false;
 			freeplayLock = false;
 			ClientPrefs.saveSettings();
-		}
+		}*/
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -181,14 +181,14 @@ class MainMenuState extends MusicBeatState
 			// menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 			if (optionShit[i] == 'freeplay')
-			{
+			/*{
 				if (ClientPrefs.freeplayLock == true)
 				{
 					newShader = new ColorSwap();
 					menuItem.shader = newShader.shader;
 					newShader.brightness = -0.8;
 				}
-			}
+			}*/
 			if (optionShit[i] == 'story_mode')
 			{
 				menuItem.x += 15;
@@ -318,7 +318,7 @@ class MainMenuState extends MusicBeatState
 				{
 					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 				}
-				else if (optionShit[curSelected] == 'freeplay' && ClientPrefs.freeplayLock == true)
+				// else if (optionShit[curSelected] == 'freeplay' && ClientPrefs.freeplayLock == true)
 				{
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					FlxG.camera.shake(0.004, 0.04);
@@ -361,7 +361,7 @@ class MainMenuState extends MusicBeatState
 			}
 			#end
 
-			if (FlxG.keys.justPressed.DELETE #if android || _virtualpad.buttonC.justPressed #end)
+			/* if (FlxG.keys.justPressed.DELETE #if android || _virtualpad.buttonC.justPressed #end)
 			{
 				var allow:Bool = ClientPrefs.freeplayLock;
 				if (!allow)
@@ -386,7 +386,7 @@ class MainMenuState extends MusicBeatState
 					});
 				}
 			}
-		}
+		}*/
 
 		super.update(elapsed);
 
