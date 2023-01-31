@@ -2051,7 +2051,7 @@ class PlayState extends MusicBeatState
 		if(ret != FunkinLua.Function_Stop) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
 		        #if android
-		        androidControls.visible = true;
+		        androidc.visible = true;
 		        #end
 			generateStaticArrows(0);
 			generateStaticArrows(1);
@@ -3880,7 +3880,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if android
-		androidControls.visible = false;
+		androidc.visible = false;
 		#end
 		timeBarBG.visible = false;
 		timeBar.visible = false;
