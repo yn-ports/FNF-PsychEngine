@@ -29,23 +29,13 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = [
-		'Note Colors',
-		'Controls',
-		'Adjust Delay and Combo',
-		'Graphics',
-		'Visuals and UI',
-		'Gameplay'
-	];
+	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
-
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
 
-	function openSelectedSubstate(label:String)
-	{
-		switch (label)
-		{
+	function openSelectedSubstate(label:String) {
+		switch(label) {
 			case 'Note Colors':
 				#if android
 				removeVirtualPad();
@@ -79,8 +69,7 @@ class OptionsState extends MusicBeatState
 	var selectorLeft:Alphabet;
 	var selectorRight:Alphabet;
 
-	override function create()
-	{
+	override function create() {
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
@@ -127,45 +116,41 @@ class OptionsState extends MusicBeatState
 		super.create();
 	}
 
-	override function closeSubState()
-	{
+	override function closeSubState() {
 		super.closeSubState();
 		ClientPrefs.saveSettings();
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.UI_UP_P)
-		{
+		if (controls.UI_UP_P) {
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P)
-		{
+		if (controls.UI_DOWN_P) {
 			changeSelection(1);
 		}
 
-		if (controls.BACK)
-		{
+		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
-		if (controls.ACCEPT)
-		{
+		if (controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);
 		}
 
 		#if android
-		if (_virtualpad.buttonC.justPressed) {
-			MusicBeatState.switchState(new android.AndroidControlsMenu());
+		if (virtualPad.buttonC.justPressed) {
+			#if android
+			removeVirtualPad();
+			#end
+			openSubState(new android.AndroidControlsSubState());
 		}
 		#end
 	}
-
-	function changeSelection(change:Int = 0)
-	{
+	
+	function changeSelection(change:Int = 0) {
 		curSelected += change;
 		if (curSelected < 0)
 			curSelected = options.length - 1;
@@ -174,14 +159,12 @@ class OptionsState extends MusicBeatState
 
 		var bullShit:Int = 0;
 
-		for (item in grpOptions.members)
-		{
+		for (item in grpOptions.members) {
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
-			if (item.targetY == 0)
-			{
+			if (item.targetY == 0) {
 				item.alpha = 1;
 				selectorLeft.x = item.x - 63;
 				selectorLeft.y = item.y;
