@@ -370,7 +370,6 @@ class MainMenuState extends MusicBeatState
 					var black2:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
 					black2.alpha = 1;
 					add(black2);
-
 					FlxTween.tween(black2, {alpha: 0}, 0.4, {
 						onComplete: function(twn:FlxTween)
 						{
