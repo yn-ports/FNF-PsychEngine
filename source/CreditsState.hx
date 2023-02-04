@@ -13,7 +13,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-#if MODS_ALLOWED
+#if sys
 import sys.FileSystem;
 import sys.io.File;
 #end
@@ -52,26 +52,24 @@ class CreditsState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		#if MODS_ALLOWED
-		var path:String = 'modsList.txt';
-		if (Assets.exists(path))
+        #if sys
+		//trace("finding mod shit");
+		for (folder in Paths.getModDirectories())
 		{
-			var leMods:Array<String> = CoolUtil.coolTextFile(path);
-			for (i in 0...leMods.length)
+			var creditsFile:String = Assets.getText(Paths.txt('data/credits.txt'))
+			if (FileSystem.exists(creditsFile))
 			{
-				if (leMods.length > 1 && leMods[0].length > 0)
+				var firstarray:Array<String> = File.getContent(creditsFile).split('\n');
+				for(i in firstarray)
 				{
-					var modSplit:Array<String> = leMods[i].split('|');
-					if (!Paths.ignoreModFolders.contains(modSplit[0].toLowerCase()) && !modsAdded.contains(modSplit[0]))
-					{
-						if (modSplit[1] == '1')
-							pushModCreditsToList(modSplit[0]);
-						else
-							modsAdded.push(modSplit[0]);
-					}
+					var arr:Array<String> = i.replace('\\n', '\n').split("::");
+					if(arr.length >= 5) arr.push(folder);
+					creditsStuff.push(arr);
 				}
+				creditsStuff.push(['']);
 			}
 		}
+		#end
 
 		var arrayOfFolders:Array<String> = Paths.getModDirectories();
 		arrayOfFolders.push('');
