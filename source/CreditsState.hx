@@ -77,7 +77,6 @@ class CreditsState extends MusicBeatState
 		{
 			pushModCreditsToList(folder);
 		}
-		#end
 
 		var pisspoop:Array<Array<String>> = [
 			// Name - Icon name - Description - Link - BG Color
