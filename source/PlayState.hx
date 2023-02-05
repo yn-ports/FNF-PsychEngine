@@ -125,7 +125,7 @@ class PlayState extends MusicBeatState
 	public var DAD_Y:Float = 100;
 	public var GF_X:Float = 400;
 	public var GF_Y:Float = 130;
-	public var piss:Bool = true;
+	
 
 	public var songSpeedTween:FlxTween;
 	public var songSpeed(default, set):Float = 1;
@@ -1874,82 +1874,43 @@ class PlayState extends MusicBeatState
 		char.x += char.positionArray[0];
 		char.y += char.positionArray[1];
 	}
+	public function startVideo(name:String)
+	{
+		#if VIDEOS_ALLOWED
+		inCutscene = true;
 
-	public function startVideo(name:String):Void
-	{
-	#if VIDEOS_ALLOWED
-	var foundFile:Bool = false;
-	var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
-	#if MODS_ALLOWED
-	if (FileSystem.exists(fileName))
-	{
-		foundFile = true;
-	}
-	#end
-
-	if (!foundFile)
-	{
-		fileName = Paths.video(name);
-		#if MODS_ALLOWED
-		if (FileSystem.exists(fileName))
-		{
+		var filepath:String = Paths.video(name);
+		#if windows
+		if(!FileSystem.exists(filepath))
 		#else
-		if (OpenFlAssets.exists(fileName))
-		{
+		if(!OpenFlAssets.exists(filepath))
 		#end
-			foundFile = true;
-		}
-		} if (foundFile)
 		{
-			inCutscene = true;
-			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-			bg.scrollFactor.set();
-			bg.cameras = [camHUD];
-			add(bg);
-
-			(new FlxVideo(fileName)).finishCallback = function()
-			{
-				remove(bg);
-				if (endingSong)
-				{
-					endSong();
-				}
-				else
-				{
-					if (piss == false)
-					{
-						trace('oh  nvm');
-						schoolIntro(doof);
-					}
-					if (piss == true)
-					{
-						startCountdown();
-					}
-				}
-			}
+			FlxG.log.warn('Couldnt find video file: ' + name);
+			startAndEnd();
 			return;
 		}
-		else
+
+		var video:MP4Handler = new MP4Handler();
+		video.playVideo(filepath);
+		video.finishCallback = function()
 		{
-			FlxG.log.warn('Couldnt find video file: ' + fileName);
+			startAndEnd();
+			return;
 		}
+		#else
+		FlxG.log.warn('Platform not supported!');
+		startAndEnd();
+		return;
 		#end
-		if (endingSong)
-		{
+	}
+
+	function startAndEnd()
+	{
+		if(endingSong)
 			endSong();
-		}
 		else
-		{
-			if (piss == false)
-			{
-				trace('oh  nvm');
-				schoolIntro(doof);
-			}
-			if (piss == true)
-			{
-				startCountdown();
-			}
-		}
+			startCountdown();
 	}
 	
 	var dialogueCount:Int = 0;
