@@ -973,7 +973,7 @@ class PlayState extends MusicBeatState
 			doPush = true;
 		}
 		if (doPush)
-			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "freeplay2.lua")));
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "freeplay5.lua")));
 		#end
 				// "GLOBAL" SCRIPT
 		#if LUA_ALLOWED
@@ -1319,15 +1319,22 @@ class PlayState extends MusicBeatState
 		// cameras = [FlxG.cameras.list[1]];
 		startingSong = true;
 
+		generateSong(SONG.song);
 		#if LUA_ALLOWED
-		for (notetype in noteTypeMap.keys())
-		{
-			startLuasOnFolder('custom_notetypes/' + notetype + '.lua');
-		}
-		for (event in eventPushedMap.keys())
-		{
-			startLuasOnFolder('custom_events/' + event + '.lua');
-		}
+		for (notetype in noteTypeMap.keys()) {
+                        var luaToLoad:String = 'custom_notetypes/' + notetype + '.lua';
+                    luaToLoad = Paths.getPreloadPath(luaToLoad);
+                        if(OpenFlAssets.exists(luaToLoad)) {
+                                luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
+                        }
+                }
+                for (event in eventPushedMap.keys()) {
+                        var luaToLoad:String = 'custom_events/' + event + '.lua';
+                        luaToLoad = Paths.getPreloadPath(luaToLoad);    
+			if(OpenFlAssets.exists(luaToLoad)) {
+                                luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
+                        }
+                }
 		#end
 		noteTypeMap.clear();
 		noteTypeMap = null;
