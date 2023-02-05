@@ -901,16 +901,120 @@ class PlayState extends MusicBeatState
 		if (doPush)
 			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "script.lua")));
 		#end
-
+		
+				// "GLOBAL" SCRIPT
 		#if LUA_ALLOWED
 		var doPush:Bool = false;
-		if (OpenFlAssets.exists("assets/scripts/" + "script1.lua"))
+		if (OpenFlAssets.exists("assets/scripts/" + "Combo.lua"))
 		{
 			doPush = true;
 		}
 		if (doPush)
-			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "script1.lua")));
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "Combo.lua")));
 		#end
+		
+				// "GLOBAL" SCRIPT
+		#if LUA_ALLOWED
+		var doPush:Bool = false;
+		if (OpenFlAssets.exists("assets/scripts/" + "freeplay.lua"))
+		{
+			doPush = true;
+		}
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "freeplay.lua")));
+		#end
+				// "GLOBAL" SCRIPT
+		#if LUA_ALLOWED
+		var doPush:Bool = false;
+		if (OpenFlAssets.exists("assets/scripts/" + "freeplay1.lua"))
+		{
+			doPush = true;
+		}
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "freeplay1.lua")));
+		#end
+				// "GLOBAL" SCRIPT
+		#if LUA_ALLOWED
+		var doPush:Bool = false;
+		if (OpenFlAssets.exists("assets/scripts/" + "freeplay2.lua"))
+		{
+			doPush = true;
+		}
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "freepla2.lua")));
+		#end
+				// "GLOBAL" SCRIPT
+		#if LUA_ALLOWED
+		var doPush:Bool = false;
+		if (OpenFlAssets.exists("assets/scripts/" + "freeplay3.lua"))
+		{
+			doPush = true;
+		}
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "freeplay3.lua")));
+		#end
+				// "GLOBAL" SCRIPT
+		#if LUA_ALLOWED
+		var doPush:Bool = false;
+		if (OpenFlAssets.exists("assets/scripts/" + "freeplay4.lua"))
+		{
+			doPush = true;
+		}
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "freeplay4.lua")));
+		#end
+		
+				// "GLOBAL" SCRIPT
+		#if LUA_ALLOWED
+		var doPush:Bool = false;
+		if (OpenFlAssets.exists("assets/scripts/" + "freeplay5.lua"))
+		{
+			doPush = true;
+		}
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "freeplay2.lua")));
+		#end
+				// "GLOBAL" SCRIPT
+		#if LUA_ALLOWED
+		var doPush:Bool = false;
+		if (OpenFlAssets.exists("assets/scripts/" + "HEALTH_BAR_SHIT.lua"))
+		{
+			doPush = true;
+		}
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "HEALTH_BAR_SHIT.lua")));
+		#end
+				// "GLOBAL" SCRIPT
+		#if LUA_ALLOWED
+		var doPush:Bool = false;
+		if (OpenFlAssets.exists("assets/scripts/" + "lua.lua"))
+		{
+			doPush = true;
+		}
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "lua.lua")));
+		#end
+				// "GLOBAL" SCRIPT
+		#if LUA_ALLOWED
+		var doPush:Bool = false;
+		if (OpenFlAssets.exists("assets/scripts/" + "pause image.lua"))
+		{
+			doPush = true;
+		}
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "pause image.lua")));
+		#end
+
+		#if LUA_ALLOWED
+		var doPush:Bool = false;
+		if (OpenFlAssets.exists("assets/scripts/" + "pause.lua"))
+		{
+			doPush = true;
+		}
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath("assets/scripts/" + "pause.lua")));
+		#end
+		
 
 		// STAGE SCRIPTS
 		#if LUA_ALLOWED
@@ -1627,45 +1731,83 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	public function startVideo(name:String)
+	public function startVideo(name:String):Void
 	{
-		#if VIDEOS_ALLOWED
-		inCutscene = true;
-
-		var filepath:String = Paths.video(name);
-		#if windows
-		if (!FileSystem.exists(filepath))
-		#else
-		if (!OpenFlAssets.exists(filepath))
-		#end
-		{
-			FlxG.log.warn('Couldnt find video file: ' + name);
-			startAndEnd();
-			return;
-		}
-
-		var video:MP4Handler = new MP4Handler();
-		video.playVideo(filepath);
-		video.finishCallback = function()
-		{
-			startAndEnd();
-			return;
-		}
-		#else
-		FlxG.log.warn('Platform not supported!');
-		startAndEnd();
-		return;
-		#end
+	#if VIDEOS_ALLOWED
+	var foundFile:Bool = false;
+	var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
+	#if MODS_ALLOWED
+	if (FileSystem.exists(fileName))
+	{
+		foundFile = true;
 	}
+	#end
 
-	function startAndEnd()
+	if (!foundFile)
 	{
-		if (endingSong)
-			endSong();
+		fileName = Paths.video(name);
+		#if MODS_ALLOWED
+		if (FileSystem.exists(fileName))
+		{
+		#else
+		if (OpenFlAssets.exists(fileName))
+		{
+		#end
+			foundFile = true;
+		}
+		} if (foundFile)
+		{
+			inCutscene = true;
+			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+			bg.scrollFactor.set();
+			bg.cameras = [camHUD];
+			add(bg);
+
+			(new FlxVideo(fileName)).finishCallback = function()
+			{
+				remove(bg);
+				if (endingSong)
+				{
+					endSong();
+				}
+				else
+				{
+					if (piss == false)
+					{
+						trace('oh  nvm');
+						schoolIntro(doof);
+					}
+					if (piss == true)
+					{
+						startCountdown();
+					}
+				}
+			}
+			return;
+		}
 		else
-			startCountdown();
+		{
+			FlxG.log.warn('Couldnt find video file: ' + fileName);
+		}
+		#end
+		if (endingSong)
+		{
+			endSong();
+		}
+		else
+		{
+			if (piss == false)
+			{
+				trace('oh  nvm');
+				schoolIntro(doof);
+			}
+			if (piss == true)
+			{
+				startCountdown();
+			}
+		}
 	}
-
+	
 	var dialogueCount:Int = 0;
 
 	public var psychDialogue:DialogueBoxPsych;
@@ -2115,12 +2257,11 @@ class PlayState extends MusicBeatState
 		introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
 
 		var introAlts:Array<String> = introAssets.get('default');
-		if (isPixelStage)
-			introAlts = introAssets.get('pixel');
-
+		if (isPixelStage) introAlts = introAssets.get('pixel');
+		
 		for (asset in introAlts)
 			Paths.image(asset);
-
+		
 		Paths.sound('intro3' + introSoundsSuffix);
 		Paths.sound('intro2' + introSoundsSuffix);
 		Paths.sound('intro1' + introSoundsSuffix);
@@ -2211,16 +2352,14 @@ class PlayState extends MusicBeatState
 
 				var introAlts:Array<String> = introAssets.get('default');
 				var antialias:Bool = ClientPrefs.globalAntialiasing;
-				if (isPixelStage)
-				{
+				if(isPixelStage) {
 					introAlts = introAssets.get('pixel');
 					antialias = false;
 				}
 
 				// head bopping for bg characters on Mall
-				if (curStage == 'mall')
-				{
-					if (!ClientPrefs.lowQuality)
+				if(curStage == 'mall') {
+					if(!ClientPrefs.lowQuality)
 						upperBoppers.dance(true);
 
 					bottomBoppers.dance(true);
@@ -2230,9 +2369,28 @@ class PlayState extends MusicBeatState
 				switch (swagCounter)
 				{
 					case 0:
+						countdownReady = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
+						countdownReady.cameras = [camHUD];
+						countdownReady.scrollFactor.set();
+						countdownReady.updateHitbox();
+
+						if (PlayState.isPixelStage)
+							countdownReady.setGraphicSize(Std.int(countdownReady.width * daPixelZoom));
+
+						countdownReady.screenCenter();
+						countdownReady.antialiasing = antialias;
+						insert(members.indexOf(notes), countdownReady);
+						FlxTween.tween(countdownReady, {/*y: countdownReady.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
+							ease: FlxEase.cubeInOut,
+							onComplete: function(twn:FlxTween)
+							{
+								remove(countdownReady);
+								countdownReady.destroy();
+							}
+						});
 						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
 					case 1:
-						countdownReady = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
+						countdownReady = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
 						countdownReady.cameras = [camHUD];
 						countdownReady.scrollFactor.set();
 						countdownReady.updateHitbox();
@@ -2253,7 +2411,7 @@ class PlayState extends MusicBeatState
 						});
 						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
 					case 2:
-						countdownSet = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
+						countdownSet = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
 						countdownSet.cameras = [camHUD];
 						countdownSet.scrollFactor.set();
 
@@ -2273,7 +2431,7 @@ class PlayState extends MusicBeatState
 						});
 						FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
 					case 3:
-						countdownGo = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
+						countdownGo = new FlxSprite().loadGraphic(Paths.image(introAlts[3]));
 						countdownGo.cameras = [camHUD];
 						countdownGo.scrollFactor.set();
 
@@ -2297,14 +2455,12 @@ class PlayState extends MusicBeatState
 					case 4:
 				}
 
-				notes.forEachAlive(function(note:Note)
-				{
-					if (ClientPrefs.opponentStrums || note.mustPress)
+				notes.forEachAlive(function(note:Note) {
+					if(ClientPrefs.opponentStrums || note.mustPress)
 					{
 						note.copyAlpha = false;
 						note.alpha = note.multAlpha;
-						if (ClientPrefs.middleScroll && !note.mustPress)
-						{
+						if(ClientPrefs.middleScroll && !note.mustPress) {
 							note.alpha *= 0.35;
 						}
 					}
