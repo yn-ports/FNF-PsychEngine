@@ -1356,7 +1356,150 @@ class PlayState extends MusicBeatState
 
 		#if (LUA_ALLOWED)
 		var doPush:Bool = false;
-		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/script1.lua';
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/script2.lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if (OpenFlAssets.exists(luaFile))
+		{
+			doPush = true;
+		}
+
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+		#end
+				// SONG SPECIFIC SCRIPTS
+		#if (LUA_ALLOWED)
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/camera follow pos.lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if (OpenFlAssets.exists(luaFile))
+		{
+			doPush = true;
+		}
+
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+		#end
+				// SONG SPECIFIC SCRIPTS
+		#if (LUA_ALLOWED)
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/cutscene.lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if (OpenFlAssets.exists(luaFile))
+		{
+			doPush = true;
+		}
+
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+		#end
+				// SONG SPECIFIC SCRIPTS
+		#if (LUA_ALLOWED)
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/Song Name.lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if (OpenFlAssets.exists(luaFile))
+		{
+			doPush = true;
+		}
+
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+		#end
+				// SONG SPECIFIC SCRIPTS
+		#if (LUA_ALLOWED)
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/Song Name.lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if (OpenFlAssets.exists(luaFile))
+		{
+			doPush = true;
+		}
+
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+		#end
+				// SONG SPECIFIC SCRIPTS
+		#if (LUA_ALLOWED)
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/loading.lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if (OpenFlAssets.exists(luaFile))
+		{
+			doPush = true;
+		}
+
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+		#end
+				// SONG SPECIFIC SCRIPTS
+		#if (LUA_ALLOWED)
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/script (2).lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if (OpenFlAssets.exists(luaFile))
+		{
+			doPush = true;
+		}
+
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+		#end
+				// SONG SPECIFIC SCRIPTS
+		#if (LUA_ALLOWED)
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/customDeath.lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if (OpenFlAssets.exists(luaFile))
+		{
+			doPush = true;
+		}
+
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+		#end
+				// SONG SPECIFIC SCRIPTS
+		#if (LUA_ALLOWED)
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/despair.lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if (OpenFlAssets.exists(luaFile))
+		{
+			doPush = true;
+		}
+
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+		#end
+				// SONG SPECIFIC SCRIPTS
+		#if (LUA_ALLOWED)
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/middlescroll.lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if (OpenFlAssets.exists(luaFile))
+		{
+			doPush = true;
+		}
+
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+		#end
+				// SONG SPECIFIC SCRIPTS
+		#if (LUA_ALLOWED)
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/add characters list.lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if (OpenFlAssets.exists(luaFile))
+		{
+			doPush = true;
+		}
+
+		if (doPush)
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+		#end
+				// SONG SPECIFIC SCRIPTS
+		#if (LUA_ALLOWED)
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/Combo.lua';
 		luaFile = Paths.getPreloadPath(luaFile);
 		if (OpenFlAssets.exists(luaFile))
 		{
