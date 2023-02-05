@@ -17,6 +17,14 @@ function onCreate()
 	makeLuaSprite('info2', 'freeplay/infoDifficulty', -600, 0)
 	addLuaSprite('info2')
 	setScrollFactor('info2', 1, 1);
+	
+	makeLuaText("tips", 'Left = Start song\nUp = Last song\nDown = Next song\nRight = Exit to freeplay', 1000, 250, 600)
+	setTextSize('tips', 25)
+	setObjectCamera('tips', 'other')
+	addLuaText("tips")
+	setTextAlignment('tips', 'right')
+	
+	setProperty('skipCountdown', true)
 end
 
 function onCreatePost()
@@ -33,4 +41,9 @@ end
 
 function onUpdate()
          triggerEvent('Add Camera Zoom','0','1')
+         playMusic('freakyMenu', 0.8)
+end
+
+function onStartCountdown()
+	playMusic('freakyMenu', 0.8)
 end
