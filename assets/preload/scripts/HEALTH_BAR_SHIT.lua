@@ -1,6 +1,6 @@
 function onCreate()
 	
-makeLuaSprite('uglyHB', 'healthbar', 0, 0)
+makeLuaSprite('uglyHB', 'healthBar', 0, 0)
 	setObjectCamera('uglyHB', 'hud')
 	
 setScrollFactor('uglyHB', 0.9, 0.9)
