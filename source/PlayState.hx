@@ -1393,7 +1393,7 @@ class PlayState extends MusicBeatState
 		if (doPush)
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
 		#end
-				// SONG SPECIFIC SCRIPTS
+				/*// SONG SPECIFIC SCRIPTS
 		#if (LUA_ALLOWED)
 		var doPush:Bool = false;
 		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/cutscene.lua';
@@ -1405,7 +1405,7 @@ class PlayState extends MusicBeatState
 
 		if (doPush)
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
-		#end
+		#end*/
 				// SONG SPECIFIC SCRIPTS
 		#if (LUA_ALLOWED)
 		var doPush:Bool = false;
@@ -1632,6 +1632,18 @@ class PlayState extends MusicBeatState
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 		}
 		callOnLuas('onCreatePost', []);
+
+switch (curSong.toLowerCase())
+{
+	case 'blue':
+		playCutscene('blue-begin.mp4');
+	case 'house-for-sale':
+		playCutscene('cutscenes1.mp4');
+	case 'funny-cartoon':
+	    playCutscene('pibby-start.mp4');
+	default:
+		startCountdown();
+}
 
 		super.create();
 
@@ -4494,6 +4506,19 @@ class PlayState extends MusicBeatState
 			{
 				return;
 			}
+			
+			PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0], diff);
+FlxG.sound.music.stop();
+
+switch (curSong.toLowerCase())
+{
+	case 'shattered':
+		playCutscene('blue-end.mp4', true);
+	case 'sirokou':
+		playCutscene('end.mp4', true);
+	case 'unstoppable-block':
+	    playCutscene('pibby-end.mp4', true);
+}
 		}
 
 		#if android
