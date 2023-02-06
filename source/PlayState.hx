@@ -1937,11 +1937,9 @@ class PlayState extends MusicBeatState
 			endSong();
 		}
 	}
-}
-
 	var dialogueCount:Int = 0;
 
-	// public var psychDialogue:DialogueBoxPsych;
+	public var psychDialogue:DialogueBoxPsych;
 
 	// You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
 	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
