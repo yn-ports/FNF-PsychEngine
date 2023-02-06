@@ -440,6 +440,11 @@ class Paths
 	{
 		return modFolders('data/' + key + '.json');
 	}
+	
+	inline static public function video(key:String)
+{
+	return 'assets/videos/$key';
+}
 
 	inline static public function modsVideo(key:String)
 	{

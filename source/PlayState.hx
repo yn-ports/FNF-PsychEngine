@@ -1887,7 +1887,7 @@ class PlayState extends MusicBeatState
 		char.x += char.positionArray[0];
 		char.y += char.positionArray[1];
 	}
-	public function startVideo(name:String)
+	/*public function startVideo(name:String)
 	{
 		#if VIDEOS_ALLOWED
 		var foundFile:Bool = false;
@@ -1936,7 +1936,32 @@ class PlayState extends MusicBeatState
 		{
 			endSong();
 		}
+	}*/
+	
+	function playCutscene(name:String, atEndOfSong:Bool = false)
+{
+	inCutscene = true;
+	FlxG.sound.music.stop();
+
+	var video:VideoHandler = new VideoHandler();
+	video.finishCallback = function()
+	{
+		if (atEndOfSong)
+		{
+			if (storyPlaylist.length <= 0)
+				FlxG.switchState(new StoryMenuState());
+			else
+			{
+				SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
+				FlxG.switchState(new PlayState());
+			}
+		}
+		else
+			startCountdown();
 	}
+	video.playVideo(Paths.video(name));
+}
+
 	var dialogueCount:Int = 0;
 
 	public var psychDialogue:DialogueBoxPsych;
