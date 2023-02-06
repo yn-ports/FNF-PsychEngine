@@ -126,7 +126,7 @@ class PlayState extends MusicBeatState
 	public var DAD_Y:Float = 100;
 	public var GF_X:Float = 400;
 	public var GF_Y:Float = 130;
-	
+	public var finishCallback:Void->Void = null;
 
 	public var songSpeedTween:FlxTween;
 	public var songSpeed(default, set):Float = 1;
@@ -1892,39 +1892,53 @@ class PlayState extends MusicBeatState
 		#if VIDEOS_ALLOWED
 		var foundFile:Bool = false;
 	var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
+#if MODS_ALLOWED
+	if (FileSystem.exists(fileName))
+	{
+		foundFile = true;
+	}
+	#end
+		fileName = Paths.video(name);
 		#if MODS_ALLOWED
-		if(!FileSystem.exists(fileName))
-		#else
-		if(!OpenFlAssets.exists(fileName))
-		#end
+		if (FileSystem.exists(fileName))
 		{
-			FlxG.log.warn('Couldnt find video file: ' + name);
-			startAndEnd();
-			return;
+		#else
+		if (OpenFlAssets.exists(fileName))
+		{
+		#end
+			foundFile = true;
 		}
-
+		} if (foundFile)
+		{
+			inCutscene = true;
+			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+			bg.scrollFactor.set();
+			bg.cameras = [camHUD];
+			add(bg);
+			
+		#if VIDEOS_ALLOWED
 		var video:VideoHandler = new VideoHandler();
-		video.playVideo(SUtil.getPath() + Paths.video(name));
+		video.canSkip = false;
 		video.finishCallback = function()
 		{
-			startAndEnd();
-			return;
+			if (finishCallback != null)
+				finishCallback();
 		}
+		video.playVideo(SUtil.getStorageDirectory() + path, false, false);
 		#else
-		FlxG.log.warn('Platform not supported!');
-		startAndEnd();
-		return;
+		if (finishCallback != null)
+			finishCallback();
 		#end
-	}
-
-	function startAndEnd()
-	{
-		if(endingSong)
+					FlxG.log.warn('Couldnt find video file: ' + fileName);
+		}
+		#end
+		if (endingSong)
+		{
 			endSong();
-		else
-			startCountdown();
+		}
 	}
-	
+}
+
 	var dialogueCount:Int = 0;
 
 	public var psychDialogue:DialogueBoxPsych;
