@@ -446,11 +446,6 @@ class Paths
 	return 'assets/videos/$key';
 }
 
-	inline static public function modsVideo(key:String)
-	{
-		return modFolders('videos/' + key + '.' + VIDEO_EXT);
-	}
-
 	inline static public function modsSounds(path:String, key:String)
 	{
 		return modFolders(path + '/' + key + '.' + SOUND_EXT);

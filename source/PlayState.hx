@@ -70,7 +70,7 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-import VideoHandler;
+import hxCodec.VideoHandler;
 #end
 
 using StringTools;
@@ -1954,7 +1954,8 @@ switch (curSong.toLowerCase())
 {
 	inCutscene = true;
 	FlxG.sound.music.stop();
-
+	
+	#if VIDEO_ALLOWED
 	var video:VideoHandler = new VideoHandler();
 	video.finishCallback = function()
 	{
@@ -1972,6 +1973,7 @@ switch (curSong.toLowerCase())
 			startCountdown();
 	}
 	video.playVideo(Paths.video(name));
+	#end
 }
 
 	var dialogueCount:Int = 0;
