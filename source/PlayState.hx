@@ -4515,7 +4515,7 @@ switch (curSong.toLowerCase())
 	if (SONG.song.toLowerCase() == 'sirokou')
 	playCutscene('end.mp4', true);
 	
-	if (SONG.song.toLowerCase() == 'unstoppable-block'')
+	if (SONG.song.toLowerCase() == 'unstoppable-block')
 	playCutscene('pibby-end.mp4', true);
 	
 }
