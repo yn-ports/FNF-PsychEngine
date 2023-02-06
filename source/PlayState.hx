@@ -1633,19 +1633,8 @@ class PlayState extends MusicBeatState
 		}
 		callOnLuas('onCreatePost', []);
 
-switch (curSong.toLowerCase())
-{
-	case 'blue':
-		playCutscene('blue-begin.mp4');
-	case 'house-for-sale':
-		playCutscene('cutscenes1.mp4');
-	case 'funny-cartoon':
-	    playCutscene('pibby-start.mp4');
-	default:
-		startCountdown();
-}
-
 		super.create();
+}
 
 		cacheCountdown();
 		cachePopUpScore();
@@ -1950,31 +1939,6 @@ switch (curSong.toLowerCase())
 		}
 	}*/
 	
-	function playCutscene(name:String, atEndOfSong:Bool = false)
-{
-	inCutscene = true;
-	FlxG.sound.music.stop();
-	
-	#if VIDEO_ALLOWED
-	var video:VideoHandler = new VideoHandler();
-	video.finishCallback = function()
-	{
-		if (atEndOfSong)
-		{
-			if (storyPlaylist.length <= 0)
-				FlxG.switchState(new StoryMenuState());
-			else
-			{
-				SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
-				FlxG.switchState(new PlayState());
-			}
-		}
-		else
-			startCountdown();
-	}
-	video.playVideo(Paths.video(name));
-	#end
-}
 
 	var dialogueCount:Int = 0;
 
@@ -4509,15 +4473,6 @@ switch (curSong.toLowerCase())
 				return;
 			}
 			
-    if (SONG.song.toLowerCase() == 'shattered')
-	playCutscene('blue-end.mp4', true);
-	
-	if (SONG.song.toLowerCase() == 'sirokou')
-	playCutscene('end.mp4', true);
-	
-	if (SONG.song.toLowerCase() == 'unstoppable-block')
-	playCutscene('pibby-end.mp4', true);
-	
 }
 
 		#if android
