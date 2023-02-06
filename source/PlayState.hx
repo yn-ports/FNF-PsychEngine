@@ -1892,7 +1892,7 @@ class PlayState extends MusicBeatState
 		#if VIDEOS_ALLOWED
 		inCutscene = true;
 
-		var filepath:String = Paths.video(name);
+		var filepath:String = SUtil.getStorageDirectory() + Paths.video(name);
 		#if sys
 		if(!FileSystem.exists(filepath))
 		#else
