@@ -4509,19 +4509,16 @@ switch (curSong.toLowerCase())
 				return;
 			}
 			
-			PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0], diff);
-FlxG.sound.music.stop();
-
-switch (curSong.toLowerCase())
-{
-	case 'shattered':
-		playCutscene('blue-end.mp4', true);
-	case 'sirokou':
-		playCutscene('end.mp4', true);
-	case 'unstoppable-block':
-	    playCutscene('pibby-end.mp4', true);
+    if (SONG.song.toLowerCase() == 'shattered')
+	playCutscene('blue-end.mp4', true);
+	
+	if (SONG.song.toLowerCase() == 'sirokou')
+	playCutscene('end.mp4', true);
+	
+	if (SONG.song.toLowerCase() == 'unstoppable-block'')
+	playCutscene('pibby-end.mp4', true);
+	
 }
-		}
 
 		#if android
 		androidControls.visible = false;
