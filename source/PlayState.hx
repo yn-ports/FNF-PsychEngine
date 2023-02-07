@@ -1622,7 +1622,6 @@ class PlayState extends MusicBeatState
 		callOnLuas('onCreatePost', []);
 
 		super.create();
-}
 
 		cacheCountdown();
 		cachePopUpScore();
