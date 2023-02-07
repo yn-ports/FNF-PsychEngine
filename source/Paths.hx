@@ -332,10 +332,6 @@ class Paths
 		{
 			txtExists = true;
 		}
-
-	inline static public function modsVideo(key:String) {
-		return modFolders('videos/' + key +);
-	}
 	
 		return FlxAtlasFrames.fromSpriteSheetPacker((imageLoaded != null ? imageLoaded : image(key, library)),
 			(txtExists ? File.getContent(modsTxt(key)) : file('images/$key.txt', library)));
@@ -441,6 +437,11 @@ class Paths
 	inline static public function modsJson(key:String)
 	{
 		return modFolders('data/' + key + '.json');
+	}
+	
+		inline static public function modsVideo(key:String)
+	{
+		return modFolders('videos/' + key + '.' + VIDEO_EXT);
 	}
 
 	inline static public function modsSounds(path:String, key:String)
