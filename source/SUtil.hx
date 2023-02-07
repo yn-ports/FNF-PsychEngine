@@ -88,7 +88,6 @@ class SUtil
 			for (file in Assets.list().filter(folder -> folder.contains('assets/videos')))
 				SUtil.copyContent(file, SUtil.getStorageDirectory() + file);
 
-			Main.gc(); // clean da memory.
 		}
 		#end
 	}
