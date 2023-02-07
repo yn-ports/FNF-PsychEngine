@@ -1393,7 +1393,7 @@ class PlayState extends MusicBeatState
 		if (doPush)
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
 		#end
-				/*// SONG SPECIFIC SCRIPTS
+				// SONG SPECIFIC SCRIPTS
 		#if (LUA_ALLOWED)
 		var doPush:Bool = false;
 		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/cutscene.lua';
@@ -1405,19 +1405,6 @@ class PlayState extends MusicBeatState
 
 		if (doPush)
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
-		#end*/
-				// SONG SPECIFIC SCRIPTS
-		#if (LUA_ALLOWED)
-		var doPush:Bool = false;
-		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/Song Name.lua';
-		luaFile = Paths.getPreloadPath(luaFile);
-		if (OpenFlAssets.exists(luaFile))
-		{
-			doPush = true;
-		}
-
-		if (doPush)
-			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
 		#end
 				// SONG SPECIFIC SCRIPTS
 		#if (LUA_ALLOWED)
@@ -1432,6 +1419,7 @@ class PlayState extends MusicBeatState
 		if (doPush)
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
 		#end
+				// SONG SPECIFIC SCRIPTS
 				// SONG SPECIFIC SCRIPTS
 		#if (LUA_ALLOWED)
 		var doPush:Bool = false;
@@ -1938,6 +1926,45 @@ class PlayState extends MusicBeatState
 			endSong();
 		}
 	}*/
+	
+	public function startVideo(name:String)
+	{
+		#if VIDEOS_ALLOWED
+		inCutscene = true;
+
+		var filepath:String = Paths.video(name);
+		#if sys
+		if(!FileSystem.exists(filepath))
+		#else
+		if(!OpenFlAssets.exists(filepath))
+		#end
+		{
+			FlxG.log.warn('Couldnt find video file: ' + name);
+			startAndEnd();
+			return;
+		}
+
+		FlxG.sound.music.stop();
+		var video:MP4Handler = new MP4Handler();
+		video.playVideo(filepath);
+		
+		video.finishCallback = function()
+		{
+			startAndEnd();
+		}
+		#else
+		FlxG.log.warn('Platform not supported!');
+		startAndEnd();
+		#end
+	}
+
+	function startAndEnd()
+	{
+		if(endingSong)
+			endSong();
+		else
+			startCountdown();
+	}
 	
 
 	var dialogueCount:Int = 0;
