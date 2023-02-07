@@ -190,7 +190,7 @@ class Paths
 			return file;
 		}
 		#end
-		return SUtil.getPath() + 'assets/videos/$key.$VIDEO_EXT';
+		return SUtil.getStorageDirectory() + 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	inline static public function lua(key:String, ?library:String)
