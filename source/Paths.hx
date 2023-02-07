@@ -333,6 +333,10 @@ class Paths
 			txtExists = true;
 		}
 
+	inline static public function modsVideo(key:String) {
+		return modFolders('videos/' + key +);
+	}
+	
 		return FlxAtlasFrames.fromSpriteSheetPacker((imageLoaded != null ? imageLoaded : image(key, library)),
 			(txtExists ? File.getContent(modsTxt(key)) : file('images/$key.txt', library)));
 		#else
