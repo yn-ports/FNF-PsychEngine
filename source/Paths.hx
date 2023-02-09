@@ -178,19 +178,14 @@ class Paths
 		return getPath('shaders/$key.frag', TEXT, library);
 	}
 
-	inline static public function shaderVertex(key:String, ?library:String)
-	{
-		return getPath('shaders/$key.vert', TEXT, library);
-	}
-	static public function video(key:String)
+		static public function video(key:String)
 	{
 		#if MODS_ALLOWED
 		var file:String = modsVideo(key);
-		if(FileSystem.exists(file)) {
+		if (FileSystem.exists(file))
 			return file;
-		}
 		#end
-		return SUtil.getStorageDirectory() + 'assets/videos/$key.$VIDEO_EXT';
+		return 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	inline static public function lua(key:String, ?library:String)

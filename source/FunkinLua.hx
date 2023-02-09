@@ -2537,30 +2537,35 @@ class FunkinLua
 		});
 		Lua_helper.add_callback(lua, "startVideo", function(videoFile:String)
 		{
-			#if VIDEOS_ALLOWED
-			if (FileSystem.exists(Paths.video(videoFile)))
+			#if (VIDEOS_ALLOWED && MODS_ALLOWED)
+			if (FileSystem.exists(Paths.modsVideo(videoFile)))
 			{
-				PlayState.instance.startVideo(videoFile);
-				return true;
+				lePlayState.startVideo(videoFile);
 			}
 			else
 			{
-				luaTrace('startVideo: Video file not found: ' + videoFile, false, false, FlxColor.RED);
+				luaTrace('Video file not found: ' + videoFile);
+				if (lePlayState.endingSong)
+				{
+					lePlayState.endSong();
+				}
+				else
+				{
+					lePlayState.startCountdown();
+				}
 			}
-			return false;
 			#else
-			if (PlayState.instance.endingSong)
+			if (lePlayState.endingSong)
 			{
-				PlayState.instance.endSong();
+				lePlayState.endSong();
 			}
 			else
 			{
-				PlayState.instance.startCountdown();
+				lePlayState.startCountdown();
 			}
-			return true;
 			#end
 		});
-
+		
 		Lua_helper.add_callback(lua, "playMusic", function(sound:String, volume:Float = 1, loop:Bool = false)
 		{
 			FlxG.sound.playMusic(Paths.music(sound), volume, loop);
