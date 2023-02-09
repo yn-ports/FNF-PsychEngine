@@ -70,7 +70,7 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-import hxCodec.VideoHandler;
+import hxcodec.VideoHandler;
 #end
 
 using StringTools;
@@ -1944,7 +1944,7 @@ class PlayState extends MusicBeatState
 		}
 
 		FlxG.sound.music.stop();
-		var video:MP4Handler = new MP4Handler();
+		var video:VideoHandler = new VideoHandler();
 		video.playVideo(filepath);
 		
 		video.finishCallback = function()
