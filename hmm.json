@@ -49,8 +49,8 @@
       "name": "hxCodec",
       "type": "git",
       "dir": null,
-      "ref": "master",
-      "url": "https://github.com/MAJigsaw77/hxCodec"
+      "ref": "main",
+      "url": "https://github.com/polybiusproxy/hxCodec"
     },
     {
       "name": "hscript",
