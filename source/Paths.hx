@@ -178,14 +178,9 @@ class Paths
 		return getPath('shaders/$key.frag', TEXT, library);
 	}
 
-		static public function video(key:String)
+	inline static public function shaderVertex(key:String, ?library:String)
 	{
-		#if MODS_ALLOWED
-		var file:String = modsVideo(key);
-		if (FileSystem.exists(file))
-			return file;
-		#end
-		return 'assets/videos/$key.$VIDEO_EXT';
+		return getPath('shaders/$key.vert', TEXT, library);
 	}
 
 	inline static public function lua(key:String, ?library:String)
@@ -196,6 +191,18 @@ class Paths
 	inline static public function luaAsset(key:String, ?library:String)
 	{
 		return getPath('$key.lua', TEXT, library);
+	}
+
+	static public function video(key:String)
+	{
+		#if MODS_ALLOWED
+		var file:String = modsVideo(key);
+		if (FileSystem.exists(file))
+		{
+			return file;
+		}
+		#end
+		return 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String):Sound
@@ -327,7 +334,7 @@ class Paths
 		{
 			txtExists = true;
 		}
-	
+
 		return FlxAtlasFrames.fromSpriteSheetPacker((imageLoaded != null ? imageLoaded : image(key, library)),
 			(txtExists ? File.getContent(modsTxt(key)) : file('images/$key.txt', library)));
 		#else
@@ -433,8 +440,8 @@ class Paths
 	{
 		return modFolders('data/' + key + '.json');
 	}
-	
-		inline static public function modsVideo(key:String)
+
+	inline static public function modsVideo(key:String)
 	{
 		return modFolders('videos/' + key + '.' + VIDEO_EXT);
 	}
