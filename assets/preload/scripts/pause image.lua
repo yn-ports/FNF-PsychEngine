@@ -15,6 +15,39 @@ addLuaText('Text', true)
 	
 end
 
+function onUpdate()
+
+if songName == 'Freeplay' then
+setProperty('pause.visible', false)
+setProperty('Text.visible', false)
+end
+
+if songName == 'Freeplay1' then
+setProperty('pause.visible', false)
+setProperty('Text.visible', false)
+end
+
+if songName == 'Freeplay2' then
+setProperty('pause.visible', false)
+setProperty('Text.visible', false)
+end
+
+if songName == 'Freeplay3' then
+setProperty('pause.visible', false)
+setProperty('Text.visible', false)
+end
+
+if songName == 'Freeplay4' then
+setProperty('pause.visible', false)
+setProperty('Text.visible', false)
+end
+
+if songName == 'Freeplay5' then
+setProperty('pause.visible', false)
+setProperty('Text.visible', false)
+end
+
+end
 --[[function onUpdatePost()
 	setProperty('dad.color', '000000')	setProperty('iconP2.color', '000000')
 end--]]
