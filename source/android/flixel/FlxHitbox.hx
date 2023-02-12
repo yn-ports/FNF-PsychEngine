@@ -33,10 +33,16 @@ class FlxHitbox extends FlxSpriteGroup
 
 		scrollFactor.set();
 
-		add(buttonLeft = createHint(0, 0, 'left', 0xFF00FF));
-		add(buttonDown = createHint(FlxG.width / 4, 0, 'down', 0x00FFFF));
-		add(buttonUp = createHint(FlxG.width / 2, 0, 'up', 0x00FF00));
-		add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, 'right', 0xFF0000));
+		add(buttonLeft = createHint(0, 0, 'left'));
+		add(buttonDown = createHint(FlxG.width / 4, 0, 'down'));
+		add(buttonUp = createHint(FlxG.width / 2, 0, 'up'));
+		add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, 'right'));
+		
+		var hints:FlxSprite = new FlxSprite(0, 0);
+		hints.loadGraphic(Paths.image('assets/android/hitbox_hint'));
+		hints.antialiasing = ClientPrefs.globalAntialiasing;
+		hints.alpha = 0.75;
+		add(hints);
 	}
 
 	/**
@@ -52,7 +58,7 @@ class FlxHitbox extends FlxSpriteGroup
 		buttonRight = null;
 	}
 
-	private function createHint(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton
+	private function createHint(X:Float, Y:Float, Graphic:String):FlxButton
 	{
 		var hintTween:FlxTween = null;
 		var hint:FlxButton = new FlxButton(X, Y);
@@ -64,7 +70,6 @@ class FlxHitbox extends FlxSpriteGroup
 		hint.solid = false;
 		hint.immovable = true;
 		hint.scrollFactor.set();
-		hint.color = Color;
 		hint.alpha = 0.00001;
 		hint.onDown.callback = function()
 		{
