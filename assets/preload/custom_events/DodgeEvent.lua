@@ -52,7 +52,7 @@ function onUpdate()
    if (getMouseX('camHUD') > 0 and getMouseX('camHUD') < 1280) and (getMouseY('camHUD') > 0 and getMouseY('camHUD') < 170) and mousePressed('left') then
       doTweenAlpha('hitbox-s-out', 'hitbox-s', 0.2, 0.03, 'linear')
    else
-   		doTweenAlpha('hitbox-s-out', 'hitbox-s', 0, 0.03, 'linear')
+   		doTweenAlpha('hitbox-s-out', 'hitbox-s', 0.1, 0.03, 'linear')
    	end
 end
 
