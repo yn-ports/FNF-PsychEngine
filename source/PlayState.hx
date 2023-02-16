@@ -70,7 +70,7 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-import hxcodec.VideoHandler;
+import vlc.MP4Handler;
 #end
 
 using StringTools;
@@ -1875,57 +1875,7 @@ class PlayState extends MusicBeatState
 		char.x += char.positionArray[0];
 		char.y += char.positionArray[1];
 	}
-	/*public function startVideo(name:String)
-	{
-		#if VIDEOS_ALLOWED
-		var foundFile:Bool = false;
-	var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
-#if MODS_ALLOWED
-	if (FileSystem.exists(fileName))
-	{
-		foundFile = true;
-	}
-	#end
-		fileName = Paths.video(name);
-		#if MODS_ALLOWED
-		if (FileSystem.exists(fileName))
-		{
-		#else
-		if (OpenFlAssets.exists(fileName))
-		{
-		#end
-			foundFile = true;
-		}
-		} if (foundFile)
-		{
-			inCutscene = true;
-			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-			bg.scrollFactor.set();
-			bg.cameras = [camHUD];
-			add(bg);
-			
-		#if VIDEOS_ALLOWED
-		var video:VideoHandler = new VideoHandler();
-		video.canSkip = false;
-		video.finishCallback = function()
-		{
-			if (finishCallback != null)
-				finishCallback();
-		}
-		video.playVideo(SUtil.getStorageDirectory() + path, false, false);
-		#else
-		if (finishCallback != null)
-			finishCallback();
-		#end
-					FlxG.log.warn('Couldnt find video file: ' + fileName);
-		}
-		#end
-		if (endingSong)
-		{
-			endSong();
-		}
-	}*/
-	
+
 	public function startVideo(name:String)
 	{
 		#if VIDEOS_ALLOWED
@@ -1944,7 +1894,7 @@ class PlayState extends MusicBeatState
 		}
 
 		FlxG.sound.music.stop();
-		var video:VideoHandler = new VideoHandler();
+		var video:MP4Handler = new MP4Handler();
 		video.playVideo(filepath);
 		
 		video.finishCallback = function()
