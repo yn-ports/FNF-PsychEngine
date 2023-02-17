@@ -1,4 +1,5 @@
 function onCreate()
+
 makeLuaSprite('pause', 'pause/box', 1115, 0)
 scaleObject('pause', 0.3, 0.3)
 setObjectCamera('pause', 'other')
@@ -10,8 +11,8 @@ setTextColor('Text', 'FFFFFF')
 setTextFont('Text', 'vcr.ttf')
 setTextSize('Text', 30)
 setObjectCamera('Text', 'other')
-setObjectOrder('Text', 1919810)
 setTextAlignment('Text', "RIGHT")
+setObjectOrder('Text', 1919810)
 setTextBorder('Text', 1, '444444')
 addLuaText('Text', true)
 	
@@ -50,6 +51,7 @@ setProperty('Text.visible', false)
 end
 
 end
+
 --[[function onUpdatePost()
 	setProperty('dad.color', '000000')	setProperty('iconP2.color', '000000')
 end--]]
