@@ -185,7 +185,11 @@ class Paths
 	{
 		return getPath('shaders/$key.vert', TEXT, library);
 	}
-	inline static public function luaAsset(key:String, ?library:String)
+	inline static public function lua(key:String, ?library:String)
+	{
+		return Main.path + getPath('$key.lua', TEXT, library);
+	}
+		inline static public function luaAsset(key:String, ?library:String)
 	{
 		return getPath('$key.lua', TEXT, library);
 	}
