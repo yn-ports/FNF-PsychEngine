@@ -1880,40 +1880,45 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	public function startVideo(name:String)
+    public function startVideo(name:String)
 	{
 		#if (VIDEOS_ALLOWED || VIDEOVIEW)
 		inCutscene = true;
 
 		var filepath:String = Paths.video(name);
 		#if sys
-		if(!FileSystem.exists(filepath))
+		if (!FileSystem.exists(filepath))
 		#else
-		if(!OpenFlAssets.exists(filepath))
+		if (!OpenFlAssets.exists(filepath))
 		#end
 		{
-			FlxG.log.warn('Couldnt find video file: ' + name);
+			FlxG.log.warn('Couldnt find video file: ' + filepath);
 			startAndEnd();
 			return;
 		}
 
-		FlxG.sound.music.stop();
+        #if VIDEOS_ALLOWED
 		var video:MP4Handler = new MP4Handler();
 		video.playVideo(filepath);
-		
 		video.finishCallback = function()
+                #elseif VIDEOVIEW
+                VideoView.playVideo(filepath);
+		VideoView.onCompletion = function()
+                #end
 		{
 			startAndEnd();
+			return;
 		}
-		#else
+                #else
 		FlxG.log.warn('Platform not supported!');
 		startAndEnd();
-		#end
+		return;
+                #end
 	}
 
 	function startAndEnd()
 	{
-		if(endingSong)
+		if (endingSong)
 			endSong();
 		else
 			startCountdown();
