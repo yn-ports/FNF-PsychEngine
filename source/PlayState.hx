@@ -73,6 +73,10 @@ import sys.io.File;
 import vlc.MP4Handler;
 #end
 
+#if VIDEOVIEW
+import extension.videoview.VideoView;
+#end
+
 using StringTools;
 
 class PlayState extends MusicBeatState
@@ -1878,7 +1882,7 @@ class PlayState extends MusicBeatState
 
 	public function startVideo(name:String)
 	{
-		#if VIDEOS_ALLOWED
+		#if (VIDEOS_ALLOWED || VIDEOVIEW)
 		inCutscene = true;
 
 		var filepath:String = Paths.video(name);
