@@ -5415,6 +5415,11 @@
 						"0.8"
 					],
 					[
+						"change_stage",
+						"memory",
+						""
+					],
+					[
 						"Change Character",
 						"dad",
 						"blue-back"
@@ -5488,6 +5493,11 @@
 						"Change Character",
 						"bf",
 						"bf-week2-rtx"
+					],
+					[
+						"bgremove",
+						"memory",
+						""
 					]
 				]
 			],
