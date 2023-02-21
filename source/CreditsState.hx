@@ -56,7 +56,7 @@ class CreditsState extends MusicBeatState
 		//trace("finding mod shit");
 		for (folder in Paths.getModDirectories())
 		{
-			var creditsFile:String = Assets.getText(Paths.txt('data/credits.txt'));
+			var creditsFile:String = Assets.getText(Paths.txt('credits.txt'));
 			if (FileSystem.exists(creditsFile))
 			{
 				var firstarray:Array<String> = File.getContent(creditsFile).split('\n');
