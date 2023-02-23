@@ -69,14 +69,6 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
-#if VIDEOS_ALLOWED
-import vlc.MP4Handler;
-#end
-
-#if VIDEOVIEW
-import extension.videoview.VideoView;
-#end
-
 using StringTools;
 
 class PlayState extends MusicBeatState
@@ -1023,7 +1015,6 @@ class PlayState extends MusicBeatState
 		
 
 		// STAGE SCRIPTS
-		#if LUA_ALLOWED
 		var doPush:Bool = false;
 		var luaFile:String = 'stages/' + curStage + '.lua';
 			luaFile = Paths.getPreloadPath(luaFile);
@@ -1033,7 +1024,6 @@ class PlayState extends MusicBeatState
 
 		if(doPush)
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
-		#end
 
 		var gfVersion:String = SONG.gfVersion;
 		if (gfVersion == null || gfVersion.length < 1)
@@ -1872,50 +1862,24 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-    public function startVideo(name:String)
-	{
-		#if (VIDEOS_ALLOWED || VIDEOVIEW)
-		inCutscene = true;
+	public function startVideo(name:String,?isCutscene:Bool = true):Void {
+		#if VIDEOS_ALLOWED
+		var fileName:String = "assets/videos/" + name;
+    
+/*		var bg:FlxSprite;
+		bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+		bg.scrollFactor.set();
+		bg.cameras = [camHUD];
+*/		//add(bg);
 
-		var filepath:String = Paths.video(name);
-		#if sys
-		if (!FileSystem.exists(filepath))
-		#else
-		if (!OpenFlAssets.exists(filepath))
-		#end
-		{
-			FlxG.log.warn('Couldnt find video file: ' + filepath);
+		(new FlxVideo(fileName)).finishCallback = function() {
+//			remove(bg);
 			startAndEnd();
-			return;
 		}
-
-        #if VIDEOS_ALLOWED
-		var video:MP4Handler = new MP4Handler();
-		video.playVideo(filepath);
-		video.finishCallback = function()
-                #elseif VIDEOVIEW
-                VideoView.playVideo(filepath);
-		VideoView.onCompletion = function()
-                #end
-		{
-			startAndEnd();
-			return;
-		}
-                #else
-		FlxG.log.warn('Platform not supported!');
+		if (isCutscene)
 		startAndEnd();
-		return;
-                #end
+		#end
 	}
-
-	function startAndEnd()
-	{
-		if (endingSong)
-			endSong();
-		else
-			startCountdown();
-	}
-	
 
 	var dialogueCount:Int = 0;
 
