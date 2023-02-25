@@ -5437,16 +5437,6 @@
 				]
 			],
 			[
-				67382.8125,
-				[
-					[
-						"Camera",
-						"false",
-						""
-					]
-				]
-			],
-			[
 				74765.625,
 				[
 					[
@@ -5492,7 +5482,7 @@
 					[
 						"Change Character",
 						"bf",
-						"bf-week2-rtx"
+						"bf-week2-RTX"
 					],
 					[
 						"bgremove",
