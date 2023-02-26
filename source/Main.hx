@@ -53,6 +53,8 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
+		
+SUtil.gameCrashCheck();
 
 		if (stage != null)
 		{
@@ -87,6 +89,7 @@ class Main extends Sprite
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
+		SUtil.doTheCheck();
 
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate,
