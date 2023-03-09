@@ -168,7 +168,12 @@
 	<android permission="android.permission.VIBRATE"/>
 	<android permission="android.permission.WRITE_EXTERNAL_STORAGE"/>
 	<android permission="android.permission.READ_EXTERNAL_STORAGE"/>
-	
+		
+	<section if="ios">
+		<!--Dependency--> 
+		<dependency name="Metal.framework" />
+		<dependency name="WebKit.framework" />
+	</section>
 
 	<!-- _________________________________ Custom _______________________________ 
 ​⬜⬜​⬜🏿🏿🏿🏻🏻🏻🏻
