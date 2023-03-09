@@ -193,17 +193,18 @@ class Paths
 		return getPath('$key.lua', TEXT, library);
 	}
 
-	static public function video(key:String)
+		static public function video(key:String)
 	{
 		#if MODS_ALLOWED
 		var file:String = modsVideo(key);
-		if(FileSystem.exists(file)) {
+		if (FileSystem.exists(file))
+		{
 			return file;
 		}
 		#end
-		return SUtil.getPath() + 'assets/videos/$key.$VIDEO_EXT';
+		return 'assets/videos/$key.$VIDEO_EXT';
 	}
-	
+
 	static public function sound(key:String, ?library:String):Sound
 	{
 		var sound:Sound = returnSound('sounds', key, library);
